@@ -1,0 +1,21 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+    <br>
+    <a href="{{ url_for('admin.tema') }}" class="button is-primary">Main</a>
+    <a href="{{ url_for('admin.landing') }}" class="button is-primary">Landing</a>
+    <a href="{{ url_for('admin.beranda') }}" class="button is-primary">Home</a>
+    <a href="{{ url_for('admin.isihalaman') }}" class="button is-primary">Page</a>
+    <a href="{{ url_for('admin.kelompok') }}" class="button is-primary">Category</a>
+    <a href="{{ url_for('admin.detil') }}" class="button is-primary">Detail</a>
+    <a href="{{ url_for('admin.kirim') }}" class="button is-primary">Subscribe</a>
+    <a href="{{ url_for('admin.costumcss') }}" class="button is-primary">Custom CSS</a>
+    <br>
+    <br>
+    <form action="/administrator/halaman" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <textarea class="textarea"  rows="25" name="mainhtml" wrap="soft" >{{ isi }}</textarea> 
+    
+    <button type="submit" class="button is-success">Simpan</button>
+</form>
+    <br>
+{% endblock content %}

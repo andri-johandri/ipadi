@@ -1,0 +1,57 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+    {% if posts.items %}
+    <p class="title is-3">Event TIC</p>
+    <a href="{{ url_for('admin.tambahevent') }}" class="button is-success">Tambah Event</a>
+    {% for post in posts.items %}
+    <div class="box">
+        
+        <time>{{ post.tanggaldibuat.strftime('%d-%B-%Y') }}</time>
+        <p id="{{ post.id }}" class="title is-5 mt-2"><a href="">{{ post.judul }}</a></p>
+        <p class="subtitle is-6">{{ post.isi|truncate(500)|striptags }}</p>
+        <div class="mt-1">
+            <a href="{{ url_for('admin.ubahevent', idartikel=post.id) }}" class="button is-warning is-small">Edit</a>
+            <a href="{{ url_for('admin.hapusevent', idkategori=post.id) }}" class="button is-danger is-small" onclick="return confirm('Anda yakin ingin menghapus ini?');">Hapus</a>
+                    </div>
+        <hr>
+
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="notification is-success is-light">
+        <button class="delete"></button>
+        Belum ada data event.
+    </div>
+    <p class="title is-3">Event TIC</p>
+    <a href="{{ url_for('admin.tambahevent') }}" class="button is-success">Tambah Event</a>
+    {% endif %}
+        <nav class="pagination is-small" role="navigation" aria-label="pagination">
+            {% if posts.has_prev %}
+            <a href="{{ url_for('admin.admin_index', halaman=posts.prev_num) }}" class="pagination-previous">Sebelumnya</a>
+            {% endif %}
+            {% if posts.has_next %}
+            <a href="{{ url_for('admin.admin_index', halaman=posts.next_num) }}" class="pagination-next">Selanjutnya</a>
+            {% endif %}
+
+            <ul class="pagination-list">
+            {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                    {% if posts.page == page_num %}
+                <li><a class="pagination-link is-current" disabled>{{ page_num }}</a></li>
+                    {% else %}
+                <li><a href="{{ url_for('admin.admin_index', halaman=page_num) }}" class="pagination-link">{{ page_num }}</a></li>
+                    {% endif %}
+                {% else %}
+                <li><span class="pagination-ellipsis">&hellip;</span></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </nav>
+        <script>
+            // disable 
+            $(".delete").click(function() {
+              $(".modal").removeClass("is-active");
+            });
+            // end disable
+        </script>
+{% endblock content %}

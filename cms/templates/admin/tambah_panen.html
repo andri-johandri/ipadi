@@ -1,0 +1,58 @@
+{% extends "admin/layoutalbarokah.html" %}
+{% block content %}
+<h1><strong>Tambah Data Pemeliharaan </strong></h1>
+<br>
+    <div class="my-4">
+			<form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="field">
+                    {{ form.nama.label(class="label") }}
+                    {% if form.nama.errors %}
+                        {{ form.nama(class="input") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.nama.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.nama(class="input") }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.hasil.label(class="label") }}
+                    {% if form.hasil.errors %}
+                        {{ form.hasil(class="input") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.hasil.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.hasil(class="input") }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.luas.label(class="label") }}
+                    {% if form.luas.errors %}
+                        {{ form.luas(class="input") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.luas.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.luas(class="input") }}
+                    {% endif %}
+                </div>
+                
+                
+                
+            
+                <div class="field">
+                    <div class="form-group">
+                        {{ form.submit(class="button is-info") }}
+                    </div>
+                </div>
+			</form>
+		</div>
+{% endblock content %}

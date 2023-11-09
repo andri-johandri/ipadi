@@ -1,0 +1,195 @@
+{% import "flask_select2/lib.html" as select2 %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - {{ blog_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+  </head>
+  <body>
+        <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                  <a class="navbar-item" href="{{ url_for('admin.admin_index') }}">
+                    {{ blog_name }}
+                  </a>
+
+                  <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                  </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+
+                  <div class="navbar-start is-hidden-desktop"  style="margin-left: 5px;">
+                    <div class="navbar-item has-dropdown is-hoverable	">
+                    <a class="navbar-link ">
+                     Posts
+                    </a>
+
+                    <div class="navbar-dropdown ">
+                      <ul>
+                        <li><a href="/administrator">Post</a></li>
+                        <li><a href="{{ url_for('admin.artikelbaru') }}">Tambah Post</a></li>
+                        <li><a href="{{ url_for('admin.admin_kategori') }}">Kategori</a></li>
+                        <li><a href="{{ url_for('admin.tag') }}">Tags</a></li>
+                    </ul>
+                    </div>
+                  </div>
+                  <div class="navbar-item has-dropdown is-hoverable	">
+                    <a class="navbar-link ">
+                     Halaman
+                    </a>
+
+                    <div class="navbar-dropdown ">
+                      <ul>
+                        <li><a href="{{ url_for('admin.halaman') }}">Halaman</a></li>
+                        <li><a href="{{ url_for('admin.halamanbaru') }}">Tambah Halaman</a></li>
+                    </ul>
+                    </div>
+                  </div>
+                  <div class="navbar-item has-dropdown is-hoverable	">
+                    <a class="navbar-link ">
+                     Pengaturan
+                    </a>
+
+                    <div class="navbar-dropdown ">
+                      <ul>
+                        <li><a href="{{ url_for('admin.tema') }}">Template HTML</a></li>
+                            <li><a href="{{ url_for('admin.komentar') }}">Komentar</a></li>
+                            <li><a href="{{ url_for('admin.daftarpengikut') }}">Subscribe</a></li>
+                            <li><a href="{{ url_for('admin.pengguna') }}">Pengguna</a></li>
+                            <li><a href="{{ url_for('admin.pesan') }}">Pesan</a></li>
+                    </ul>
+                    </div>
+                  </div>
+                  <li><a href="/" target="_blank">Lihat Website</a></li>
+                </div>
+                  <div class="navbar-end">
+                    <div class="navbar-item">
+                      <div class="buttons">
+                        <a href="{{ url_for('admin.logout') }}" class="button is-light">
+                          Logout
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="columns is-marginless">
+              <div class="column is-3 ">
+                <aside class="menu is-hidden-mobile">
+                    <p class="menu-label ">
+                      Dashboard
+                    </p>
+
+                    <ul class="menu-list">
+
+                        
+                        <li>
+                          <a>JTC</a>
+                          <ul>
+                            <li><a href="">Destinasi</a></li>
+                            <li><a href="">Trasnportasi</a></li>
+                            <li><a href="">Akomodasi</a></li>
+                            <li><a href="">Sarana Publik</a></li>
+                            <li><a href="">Event</a></li>
+                            <li><a href="">Booking</a></li>
+                            <li><a href="">Kategori Destinasi</a></li>
+
+                          </ul>
+                      </li>
+                      <li>
+                        <a>Artikel</a>
+                        <ul>
+                            <li><a href="/administrator">Post</a></li>
+                            <li><a href="">Tambah Post</a></li>
+                            <li><a href="">Kategori</a></li>
+                            <li><a href="">Tags</a></li>
+                            <li><a href="">Halaman</a></li>
+                          <li><a href="{{ url_for('admin.halamanbaru') }}">Tambah Halaman</a></li>
+                        </ul>
+                    </li>
+                      <li>
+                        <a>Pengaturan</a>
+                        <ul>
+                            <li><a href="{{ url_for('admin.komentar') }}">Komentar</a></li>
+                            <li><a href="{{ url_for('admin.daftarpengikut') }}">Subscribe</a></li>
+                            <li><a href="{{ url_for('admin.pengguna') }}">Pengguna</a></li>
+                            <li><a href="{{ url_for('admin.pesan') }}">Pesan</a></li>
+                        </ul>
+                    </li>
+                        <li><a href="/" target="_blank">Lihat Website</a></li>
+                        {% if current_user.is_authenticated %}
+                            <li><a href="{{ url_for('admin.logout') }}">Logout</a></li>
+                            {% endif %}
+
+
+                    </ul>
+
+                </aside>
+            </div>
+
+
+                  <!-- count user post -->
+
+                  <!-- end count user post -->
+
+                <div class="column is-three-quarters">
+                  <!-- flash -->
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                  {% for category, message in messages %}
+                  <div class="notification {{ category }}">
+                  <button class="delete"></button>
+                  {{ message }}
+                  </div>
+                  {% endfor %}
+                      {% endif %}
+                  {% endwith %}
+                  {% block content %}{% endblock %}
+              </div>
+            </div>
+        </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                    $notification = $delete.parentNode;
+
+                    $delete.addEventListener('click', () => {
+                    $notification.parentNode.removeChild($notification);
+                    });
+                });
+            });
+        </script>
+        <script>
+          const navbarBurgers = document.getElementsByClassName('navbar-burger')[0];
+          const navbarMenu = document.getElementsByClassName('navbar-menu')[0];
+          const burgerClick = navbarBurgers.addEventListener('click', tampilMenu);
+          function tampilMenu(){
+            navbarBurgers.classList.toggle('is-active');
+            navbarMenu.classList.toggle('is-active');
+          }
+          function outsideClick(e){
+                if(e.target){
+                    element.classList.remove("is-active");
+                }
+            }
+      </script>
+        {{ select2.form_js() }}
+
+  </body>
+</html>

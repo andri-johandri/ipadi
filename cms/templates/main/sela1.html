@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="CMSPythonesiaORG" />
+        <link href="{{ url_for('static', filename='images/index.png') }}" rel="icon">
+        <link href="{{ url_for('static', filename='images/index.png') }}" rel="apple-touch-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="/static/css/hero.css">
+        <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
+        {% if meta %}
+        <title>{{ post.judul }} - {{ blog_name }}</title>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <meta name="description" content="{{ post.content|striptags|truncate(150) }}">
+        <meta name="news_keywords" content="{{ post.judul }}">
+        <meta property="og:title" content="{{ post.judul }}" />
+        <meta property="og:url" content="{{ request.url }}" />
+        <meta property="og:image" content="{{ url_for('static', filename='upload/img_thumbnail/' + post.gambar) }}" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="300" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="{{meta}}" />
+        <meta name="twitter:description" content="{{ post.isi|striptags|truncate(150) }}" />
+        <meta name="twitter:image" content="{{ url_for('static', filename='upload/img_thumbnail/' + post.gambar, _external=True) }}" />
+        {% else %}
+        <title>{{ title }} - {{ blog_name }}</title>
+        <meta name="description" content="{{ deskripsi_name|truncate(150) }}">
+        <meta name="news_keywords" content="{{ title }}">
+        <meta property="og:title" content="{{ title }}" />
+        <meta property="og:url" content="{{ request.url }}" />
+        <meta property="og:image" content="{{ url_for('static', filename='images/index.png') }}" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="300" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="{{title}}" />
+        <meta name="twitter:description" content="{{ deskripsi_name|truncate(150) }}" />
+        <meta name="twitter:image" content="{{ url_for('static', filename='images/index.png', _external=True) }}" />
+        {% endif %}
+        
+
+        
+        <style>
+            /* style untuk tombol */
+            
+            .slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+        }
+        
+        .slider.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+        }
+        
+        .slider-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+        
+        .slider-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .loading {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #940000;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        /* animasi saat tombol submit di klik */
+        .submit-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+              </style>
+    </head>
+    <body style="overflow-x: hidden;">
+        
+        <div >   
+       <div class="columns">
+           <div class="column ">
+            <nav class="navbar has-text-centered py-5 is-fixed-top has-background-white">
+                
+                <div class="container">
+                        <div class="columns ">
+                        <div class="column" style="margin-left:15px;margin-right:15px;">
+                            <a href="/"><img src="/static/images/permadi.png" width="180px" height="auto" id="submitBtn"></a>
+                        </div>
+                </div>
+                </div>
+                
+                <div id="navbarBasicExample" class="navbar-menu">
+                    
+                
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="has-text-centered myDIV" style="font-size: 2rem;">
+	                                <a href="/" style="color: rgb(255, 136, 0);"><i class="fa fa-home " id="submitBtnsatu"></i></a>
+                                <br>
+                                <p style="font-size: 10px ;line-height: 10%;"><strong>Beranda</strong></p>
+                            </div>
+                           
+                        </div>
+                        <div class="navbar-item">
+                            <div class="has-text-centered is-link" style="font-size: 2rem;">
+                                <a href="/dataiot" style="color: rgb(255, 136, 0);" id="submitBtndua"><i class="fa fa-area-chart"></i></a>
+                                <br>
+                                <p style="font-size: 10px ;line-height: 10%;"><strong>Data Alat</strong></p>
+                            </div>
+                        </div>
+                        
+
+
+                        <div class="navbar-item">
+                           <div class="has-text-centered is-link" style="font-size: 2rem;">
+                                <a href="/administrator/signin" style="color: rgb(255, 136, 0);" id="submitBtnempat"><i class="fa fa-user"></i></a><br>
+                                <p style="font-size: 10px ;line-height: 10%;"><strong>Pengguna</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </nav>
+           </div>
+       </div>
+       
+       
+               {% with messages = get_flashed_messages(with_categories=true) %}
+               {% if messages %}
+               {% for category, message in messages %}
+               <div class="notification {{ category }}">
+               <button class="delete"></button>
+               {{ message }}
+               </div>
+               {% endfor %}
+               {% endif %}
+               {% endwith %}
+       
+               <section class="container" style="margin-top:100px;">
+                <div class="columns is-mobile " style="margin:20px;">
+                 <div class="column " style="margin:2px;border-radius: 60px ;background-color: #940000;color: #ffffff;" >
+                     <div class="has-text-centered is-link pb-4" style="font-size: 2.5rem;">
+                        <a href="/" class="has-text-centered has-text-white" id="submitBtnenam"><i class="fa fa-home "></i></a>
+                        <p style="font-size: 12px ;line-height: 10%;color: #ffffff;margin-bottom: 15px;">Beranda</p>
+      
+                        </div>
+                    </div>
+                    <div class="column  " style="margin:2px;border-radius: 60px; background-color: #940000;color: #ffffff;">
+                        <div class="has-text-centered has-text-white" style="font-size: 2.5rem;">
+                           <a href="/dataiot" class="has-text-centered has-text-white" id="submitBtnlima"><i class="fa fa-area-chart"></i></a>
+                           <br>
+                           <p style="font-size: 12px ;line-height: 10%;color: #ffffff;margin-bottom: 15px;">Data IOT</p>
+                       </div>
+                   </div>
+                   
+                   
+                   <div class="column  " style="margin:2px;border-radius: 60px;background-color: #940000;color: #ffffff;">
+                     <div class="has-text-centered is-link" style="font-size: 2.5rem;">
+                     <a href="/administrator/signin" class="has-text-centered has-text-white" id="submitBtntujuh"><i class="fa fa-user "></i></a>
+                     <p style="font-size: 12px ;line-height: 10%;color: #ffffff;margin-bottom: 15px;">Signin</p>
+                     </div>
+                 </div>
+                   
+               </div>
+            </section>
+       <section class="container" style="margin-top:10px;" >
+        <div class="columns">
+            <div class="column has-text-centered">
+                <p class="title is-4">Data Pantau Alat IOT Pertanian</p>
+            </div>
+        </div>
+        <section class="container"  >
+            <div class="columns " >
+                <div class="column  " >
+                    <div class="has-text-centered has-text-white" >
+                        <a class="button is-rounded is-info is-small" href="/" class="has-text-centered has-text-white" id="submitBtndelapan">ALBA 1</a>
+                        <a class="button is-rounded is-info is-small" href="/alba2" class="has-text-centered has-text-white" id="submitBtnsembilan">ALBA 2</a>
+                        <a class="button is-rounded is-info is-small" href="/alba3" class="has-text-centered has-text-white" id="submitBtnsepuluh">ALBA 3</a>
+                        <a class="button is-rounded is-info is-small" href="/sela1" class="has-text-centered has-text-white" id="submitBtnsebelas">SELA 1</a>
+                   </div>
+               </div>
+
+               
+           </div>
+           <div class="columns">
+            <div class="column has-text-centered">
+                <p class="title is-4">Sekar Langit 1</p>
+                
+            </div>
+        </div>
+        </section>
+        <div class="columns">
+        <div class="column">
+            <div class="box">
+                <canvas id="orderChart"></canvas>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <canvas id="orderChart3"></canvas>
+            </div>
+        </div>
+        </div>
+        
+        <div class="columns">
+        <div class="column">
+            <div class="box">
+                <canvas id="orderChart2"></canvas>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <canvas id="orderChart1"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="box">
+                <canvas id="orderChart5"></canvas>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <canvas id="orderChart6"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+        
+    </section>
+       
+
+           
+       
+       <footer class="footer  "  style="background-color: #940000;color: #ffffff;">
+       
+           <div class="has-text-centered py-10">
+
+               <p class="has-text-white" style="padding-top: 15px;" style="background-color: #940000;color: #ffffff;"> PERMADITANDUR SMART FARMING | Copyright &copy; {{ now }}</p>
+               <br>
+           </div>
+       </footer>
+       <nav class="navbar has-text-centered py-10 is-fixed-bottom has-background-white shadow is-hidden-desktop">
+        <div class="navbar-brand has-text-centered">
+                <div class="navbar-item">
+                    <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                        <a href="/" style="color: #940000;" id="submitBtnduabelas"><i class="fa fa-home"></i></a>
+                        <br>
+                        <p style="font-size: 8px ;line-height: 10%;"><strong>Beranda</strong></p>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                        <a href="/dataiot" style="color: #940000;" id="submitBtntigabelas"><i class="fa fa-area-chart"></i></a>
+                        <br>
+                        <p style="font-size: 8px ;line-height: 10%;"><strong>Data IOT</strong></p>
+                    </div>
+                </div>
+                
+                <div class="navbar-item">
+                    <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                        <a href="/administrator/signin " style="color: #940000;" id="submitBtnempatbelas"><i class="fa fa-user"></i></a><br>
+                        <p style="font-size: 8px ;line-height: 10%;"><strong>Signin</strong></p>
+                    </div>
+                </div>
+                
+        </div>
+    </nav>
+       <div class="slider" id="slider">
+        <div class="slider-content">
+          <center>
+          <div class="loading"></div>
+        </center>
+        </div>
+      </div>
+           <script src="/static/js/bulma.js"></script>
+           <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+           <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+           <script>
+     const navbarBurgers = document.getElementsByClassName('navbar-burger')[0];
+     const navbarMenu = document.getElementsByClassName('navbar-menu')[0];
+     const burgerClick = navbarBurgers.addEventListener('click', tampilMenu);
+     function tampilMenu(){
+       navbarBurgers.classList.toggle('is-active');
+       navbarMenu.classList.toggle('is-active');
+     }
+     function outsideClick(e){
+           if(e.target){ 
+               element.classList.remove("is-active");            
+           }
+       }
+ </script>
+ <script>
+   document.addEventListener('DOMContentLoaded', () => {
+   (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+   $notification = $delete.parentNode;
+   
+   $delete.addEventListener('click', () => {
+   $notification.parentNode.removeChild($notification);
+   });
+   });
+   });
+   </script>
+   <script>
+    var abc = document.getElementById('orderChart').getContext('2d');
+var orderChart = new Chart(abc, {
+  type: 'line',
+  data: {
+    labels: [{% for isi in a1 %} '{{isi.jam|safe|truncate(12,true,'',0)}}',{% endfor %}],
+    datasets: [{
+      label: 'PH Tanah SELA 1',
+      data: [{% for isi in a1 %} {{isi.ph }},{% endfor %}],
+      backgroundColor: "rgba(255, 0, 0,0.3)"
+    }]
+  }
+});
+
+var hij = document.getElementById('orderChart1').getContext('2d');
+var orderChart1 = new Chart(hij, {
+  type: 'line',
+  data: {
+    labels: [{% for isi in a1 %} '{{isi.jam|safe|truncate(12,true,'',0)}}',{% endfor %}],
+    datasets: [ {
+      label: 'Kelembaban Tanah SELA 1',
+      data: [{% for isi in a1 %} {{isi.lembab}},{% endfor %} ],
+      backgroundColor: "rgba(60, 179, 113,0.3)"
+    }]
+  }
+});
+
+var klm = document.getElementById('orderChart2').getContext('2d');
+var orderChart2 = new Chart(klm, {
+  type: 'line',
+  data: {
+    labels: [{% for isi in a1 %} '{{isi.jam|safe|truncate(12,true,'',0)}}',{% endfor %}],
+    datasets: [ {
+      label: 'Suhu Udara SELA 1',
+      data: [{% for isi in a1 %} {{isi.temp}},{% endfor %} ],
+      backgroundColor: "rgba(0, 0, 255,0.3)"
+    }]
+  }
+});
+
+var nop = document.getElementById('orderChart3').getContext('2d');
+var orderChart3 = new Chart(nop, {
+  type: 'line',
+  data: {
+    labels: [{% for isi in a1 %} '{{isi.jam|safe|truncate(12,true,'',0)}}',{% endfor %}],
+    datasets: [ {
+      label: 'Angin SELA 1',
+      data: [{% for isi in a1 %} {{isi.ads}},{% endfor %} ],
+      backgroundColor: "rgba(255, 165, 0,0.3)"
+    }]
+  }
+});
+
+var opq = document.getElementById('orderChart5').getContext('2d');
+var orderChart5 = new Chart(opq, {
+  type: 'line',
+  data: {
+    labels: [{% for isi in a1 %} '{{isi.jam|safe|truncate(12,true,'',0)}}',{% endfor %}],
+    datasets: [ {
+      label: 'Kondisi Air SELA 1',
+      data: [{% for isi in a1 %} {{isi.air}},{% endfor %} ],
+      backgroundColor: "rgba(255, 120, 200,0.3)"
+    }]
+  }
+});
+
+var pqr = document.getElementById('orderChart6').getContext('2d');
+var orderChart6 = new Chart(pqr, {
+  type: 'line',
+  data: {
+    labels: [{% for isi in a1 %} '{{isi.jam|safe|truncate(12,true,'',0)}}',{% endfor %}],
+    datasets: [ {
+      label: 'Kelembaban Udara Udara SELA 1',
+      data: [{% for isi in a1 %} {{isi.hum}},{% endfor %} ],
+      backgroundColor: "rgba(120, 60, 100,0.3)"
+    }]
+  }
+});
+
+
+
+
+
+</script>
+<script>
+    function showSlider() {
+    var slider = document.getElementById("slider");
+    slider.classList.add("active");
+    setTimeout(function() {
+        slider.classList.remove("active");
+    }, 45000); // durasi tampilan slider saat tombol submit di klik dalam milidetik (5000 = 5 detik)
+    return true;
+}
+const submitButton = document.getElementById("submitBtn");
+submitButton.addEventListener("click", showSlider);
+const submitSatu = document.getElementById("submitBtnsatu");
+submitSatu.addEventListener("click", showSlider);
+const submitDua = document.getElementById("submitBtndua");
+submitDua.addEventListener("click", showSlider);
+const submitEmpat = document.getElementById("submitBtnempat");
+submitEmpat.addEventListener("click", showSlider);
+const submitLima = document.getElementById("submitBtnlima");
+submitLima.addEventListener("click", showSlider);
+const submitEnam = document.getElementById("submitBtnenam");
+submitEnam.addEventListener("click", showSlider);
+const submitTujuh = document.getElementById("submitBtntujuh");
+submitTujuh.addEventListener("click", showSlider);
+const submitDelapan = document.getElementById("submitBtndelapan");
+submitDelapan.addEventListener("click", showSlider);
+const submitSembilan = document.getElementById("submitBtnsembilan");
+submitSembilan.addEventListener("click", showSlider);
+const submitSepuluh = document.getElementById("submitBtnsepuluh");
+submitSepuluh.addEventListener("click", showSlider);
+const submitSebelas = document.getElementById("submitBtnsebelas");
+submitSebelas.addEventListener("click", showSlider);
+const submitDuabelas = document.getElementById("submitBtnduabelas");
+submitDuabelas.addEventListener("click", showSlider);
+const submitTigabelas = document.getElementById("submitBtntigabelas");
+submitTigabelas.addEventListener("click", showSlider);
+const submitEmpatbelas = document.getElementById("submitBtnempatbelas");
+submitEmpatbelas.addEventListener("click", showSlider);
+
+
+  </script>
+       
+   </body>
+</html>

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /pengelola/
+Disallow: /otentifikasi/
+
+User-agent: *
+Allow: /

@@ -1,0 +1,43 @@
+{% extends "main/main.html" %}
+{% block content %}
+        <div class="columns">
+            <div class="column">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="notification {{ category }}">
+                <button class="delete"></button>
+                {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <nav class="breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Halaman</a></li>
+                        <li class="is-active"><a href="#" aria-current="page">{{ halaman.judul }}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div style="padding-right: 20px;padding-left: 10px;">
+        <div class="columns" >
+            <div class="column">
+                <p class="title is-3">{{ halaman.judul }}</p>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <p class="subtitle is-size-7 has-text-grey-light">{{ halaman.tanggaldibuat.strftime('%d-%h-%Y') }}</p>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="content">
+                    {{ halaman.isi | safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

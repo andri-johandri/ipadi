@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"> 
+    <url>
+        <loc>https://{{ request.host }}</loc>
+        <priority>0.8</priority>
+    </url>
+    {% for hal in halaman %}
+    <url>
+        <loc>https://{{ request.host }}/halaman/{{ hal.judul.lower() }}</loc>
+        <lastmod>{{ hal.tanggaldibuat.strftime('%Y-%m-%d') }}</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+{% endfor %}
+{% for post in artikel %}
+    <url>
+        <loc>https://{{ request.host }}/artikel/{{post.slug}}</loc>
+        <lastmod>{{ post.tanggaldibuat.strftime('%Y-%m-%d') }}</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+{% endfor %}
+</urlset>

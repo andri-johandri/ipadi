@@ -1,0 +1,53 @@
+{% extends "admin/layoutalbarokah.html" %}
+{% block content %}
+<h1><strong>Data Alat IOT</strong></h1>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Alat</th>
+            <th>Lokasi</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for k in kategori %}
+        <tr> 
+            <td>{{ loop.index }}</td>       
+            <td>{{ k.nama }}</td>
+            <td>{{ k.alamat }}</td>
+            <td>
+                
+                <a href="" class="button is-small is-info">Edit</a>
+                <a href="" class="button is-small is-warning">Edit</a>
+                <a href="" class="button is-small is-danger" onclick="return confirm('Anda yakin ingin menghapus ini?');">Hapus</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a href="{{ url_for('admin.tambahalat') }}" class="button is-success">Tambah Data Alat</a>
+<div id="map" style="width: 600px; height: 400px;"></div>
+<script>
+
+	var map = L.map('map').setView([-7.40549, 110.60889], 13);
+
+	var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+    var marker = L.marker({% for k in kategori %} [{{k.lati}},{{k.longi}}],{% endfor %}).addTo(map);
+		
+    
+
+</script>
+        <script>
+            // disable 
+            $(".delete").click(function() {
+              $(".modal").removeClass("is-active");
+            });
+            // end disable
+        </script>
+{% endblock content %}

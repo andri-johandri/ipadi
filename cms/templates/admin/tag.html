@@ -1,0 +1,28 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<h1><strong>Tags</strong></h1>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Tags</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+            <tr> 
+                <td>{{ loop.index }}</td>       
+                <td>{{ tag.nama }}</td>
+                <td>
+                    <a href="{{ url_for('admin.ubahtag', idtag=tag.id) }}" class="button is-small is-warning">Edit</a>
+                    <a href="{{ url_for('admin.hapustag', idtag=tag.id) }}" class="button is-danger is-small" onclick="return confirm('Anda yakin ingin menghapus ini?');">Hapus</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{{ url_for('admin.tambahtag') }}" class="button is-success">Tambah Tags</a>
+{% endblock content %}

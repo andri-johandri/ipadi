@@ -1,0 +1,80 @@
+{% extends "main/main.html" %}
+{% block content %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="notification {{ category }}">
+        <button class="delete"></button>
+        {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% if headline %}
+        <div class="columns">
+            <div id="post_images" class="carousel column">
+                
+                    {% for isihead in headline %}
+                    <div class="card">
+                    <div class="card-image" >
+                        <figure class="image">
+                            <a href="{{ url_for('main.artikel',  idartikel=isihead.slug) }}">
+                                <center><img src="{{ url_for('static', filename='upload/img_thumbnail/' + isihead.gambar) }}" alt="{{ isihead.judul }}" style="height: 350px;width: auto;text-align: center;" ></center>
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title is-4"><a href="{{ url_for('main.artikel', idartikel=isihead.slug) }}">{{ isihead.judul }}</a></p>
+                        <p class="subtitle is-6"  style="text-align: justify;">{{ isihead.isi|striptags|truncate(300) }}</p>
+                    </div>
+                </div>
+                    {% endfor %}
+                </div>
+            </div>
+  
+        
+        
+        {% endif %}
+
+        <div class="columns">
+            <div class="column">
+                <div class="columns">
+                    <div class="column">
+                        <p class="title is-4">Artikel Terbaru</p>
+                    </div>
+                </div>
+                {% for post in posts.items %}
+                <div class="columns" style="padding-right: 20px;padding-left: 10px;">
+                    <div class="column is-6">
+                        <figure class="image is-16by9">
+                            <a href="{{ url_for('main.artikel',idartikel=post.slug) }}">
+                                <img src="{{ url_for('static', filename='upload/img_thumbnail/' + post.gambar) }}" alt="{{ post.judul }}">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="column">
+                        <a class="title is-4 is-marginless" href="{{ url_for('main.artikel', idartikel=post.slug) }}">{{ post.judul }}</a>
+                        <p class="subtitle is-size-7 has-text-grey-light is-marginless">Kategori : {{ post.kategori.nama }}</p>
+                        <p class="subtitle is-size-7 has-text-grey-light is-marginless">Oleh : {{ post.penulis.nama }}</p>
+                        <p class="subtitle is-size-7 has-text-grey-light is-marginless">{{ post.tanggaldibuat.strftime('%d-%h-%Y') }}</p>
+                        <br>
+                        <p class="subtitle is-6" style="text-align: justify;">{{ post.isi|striptags|truncate(200) }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                <section class="section">
+                    <div class="columns">
+                        <div class="column">
+                            {% if posts.has_prev %}
+                            <a href="{{ url_for('main.blog', halaman=posts.prev_num) }}" class="button is-dark is-rounded is-outlined">Sebelumnya</a>
+                            {% endif %}
+                            {% if posts.has_next %}
+                            <a href="{{ url_for('main.blog', halaman=posts.next_num) }}" class="button is-dark is-rounded is-outlined is-pulled-right">Selanjutnya</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+{% endblock content %}

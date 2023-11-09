@@ -1,0 +1,36 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Mendaftar</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for user in users %}
+            <tr> 
+                <td>{{ loop.index }}</td>       
+                <td>{{ user.nama }}</td>
+                <td>{{ user.surel }}</td>
+                <td>{{ user.tgldaftar.strftime('%d-%B-%Y') }}</td>
+                {% if user.aktifasi %}
+                    <td>Aktif</td>
+                {% else %}
+                    <td>NonAktif</td>
+                {% endif %}
+                <td>{{ user.sebagai.nama }}</td>
+                <td>
+                    <a href="{{ url_for('admin.ubahakun', id=user.id) }}" class="button is-small is-warning">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

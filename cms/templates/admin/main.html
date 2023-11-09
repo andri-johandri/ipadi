@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" class="notranslate " translate="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="generator" content="CMSPythonesiaORG" />
+    <meta name="google" value="notranslate" />
+    <meta name="google" content="notranslate" />
+    <title>{{title}}</title>
+
+    <link href="{{ url_for('static', filename='images/ipadilogo1.png') }}" rel="icon">
+<link href="{{ url_for('static', filename='images/ipadilogo1.png') }}" rel="apple-touch-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyles.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      .navbar .navbar-brand {
+ text-align: center;
+ display: block;
+ width: 100%;
+}
+
+.navbar .navbar-brand > .navbar-item,
+.navbar .navbar-brand .navbar-link {
+ display: inline-block;
+}
+    </style>
+  </head>
+  <body>
+    <section class="hero is-success is-fullheight">
+      <div class="hero-body">
+          <div class="container has-text-centered">
+              
+                <!-- flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                <div class="notification {{ category }}">
+                <button class="delete"></button>
+                {{ message }}
+                </div>
+                {% endfor %}
+                  {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+      </div>
+      </div>
+    
+  </section>
+  <nav class="navbar has-text-centered py-10 is-fixed-bottom has-background-white shadow is-hidden-desktop">
+    <div class="navbar-brand has-text-centered">
+            <div class="navbar-item">
+                <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                    <a href="/" style="color: #940000;" id="submitBtnduabelas"><i class="fa fa-home"></i></a>
+                    <br>
+                    <p style="font-size: 8px ;line-height: 10%;"><strong>Beranda</strong></p>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                    <a href="/dataiot" style="color: #940000;" id="submitBtntigabelas"><i class="fa fa-area-chart"></i></a>
+                    <br>
+                    <p style="font-size: 8px ;line-height: 10%;"><strong>Data IOT</strong></p>
+                </div>
+            </div>
+            
+            <div class="navbar-item">
+                <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                    <a href="/administrator/signin " style="color: #940000;" id="submitBtnempatbelas"><i class="fa fa-user"></i></a><br>
+                    <p style="font-size: 8px ;line-height: 10%;"><strong>Signin</strong></p>
+                </div>
+            </div>
+            
+    </div>
+</nav>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+        $notification = $delete.parentNode;
+
+        $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+        });
+    });
+    });
+    </script>
+  </body>
+</html>

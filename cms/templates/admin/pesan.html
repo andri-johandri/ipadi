@@ -1,0 +1,32 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Tanggal</th>
+                
+                <th>Pesan</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for user in users %}
+            <tr> 
+                <td>{{ loop.index }}</td>       
+                <td>{{ user.nama }}</td>
+                <td>{{ user.surel }}</td>
+                <td>{{ user.tanggaldibuat.strftime('%d-%B-%Y') }}</td>
+                
+                <td></td>
+                <td>
+                    <td>{{ user.pesan }}</td>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

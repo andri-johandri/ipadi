@@ -1,0 +1,28 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+    <h1><strong>Kategori</strong></h1>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Kategori</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for k in kategori %}
+            <tr> 
+                <td>{{ loop.index }}</td>       
+                <td>{{ k.nama }}</td>
+                <td>
+                    <a href="{{ url_for('admin.ubahkategori', idkategori=k.id) }}" class="button is-small is-warning">Edit</a>
+                    <a href="{{ url_for('admin.hapuskategori', idkategori=k.id) }}" class="button is-small is-danger" onclick="return confirm('Anda yakin ingin menghapus ini?');">Hapus</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{{ url_for('admin.tambahkategoridestinasi') }}" class="button is-success">Tambah Kategori</a>
+{% endblock content %}

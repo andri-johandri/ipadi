@@ -1,0 +1,54 @@
+{% extends "main/main.html" %}
+{% block content %}
+
+            <div class="columns">
+                <div class="column">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="notification {{ category }}">
+                <button class="delete"></button>
+                {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                    <div class="columns">
+                        <div class="column">
+                            <p class="title is-4">Artikel berdasarkan {{ label }} <strong class="has-text-info">"{{ single_kategori.nama }}"</strong></p>
+                        </div>
+                    </div>
+                    {% for post in posts.items %}
+                    <div class="columns">
+                        <div class="column is-two-fifths">
+                            <figure class="image is-16by9">
+                                <a href="{{ url_for('main.artikel', berita=post.kategori.slug, idartikel=post.slug) }}">
+                                    <img src="{{ url_for('static', filename='upload/img_thumbnail/' + post.gambar) }}" alt="{{ post.title }}">
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="column">
+                            <a class="title is-4 is-marginless" href="{{ url_for('main.artikel', idartikel=post.slug) }}">{{ post.judul }}</a>
+                            <p class="subtitle is-size-7 has-text-grey-light is-marginless">oleh : {{ post.penulis.nama}}</p>
+                            <p class="subtitle is-size-7 has-text-grey-light is-marginless">{{ post.tanggaldibuat.strftime('%d-%h-%Y') }}</p>
+                            <br>
+                            <p class="subtitle is-6">{{ post.isi|truncate(255)|striptags }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <section class="section">
+                        <div class="columns">
+                            <div class="column">
+                                {% if posts.has_prev %}
+                                <a href="{{ url_for('main.topik', permalinktag=single_kategori.slug, halaman=posts.prev_num) }}" class="button is-danger is-rounded is-outlined">Prev</a>
+                                {% endif %}
+                                {% if posts.has_next %}
+                                <a href="{{ url_for('main.topik', permalinktag=single_kategori.slug, halaman=posts.next_num) }}" class="button is-danger is-rounded is-outlined is-pulled-right">Next</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            
+{% endblock content %}

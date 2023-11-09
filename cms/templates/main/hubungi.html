@@ -1,0 +1,118 @@
+{% extends "main/main.html" %}
+{% block content %}
+        <div class="columns">
+            <div class="column">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="notification {{ category }}">
+                <button class="delete"></button>
+                {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <div class="columns" style="padding-right: 20px;padding-left: 10px;">
+            <div class="column">
+                <h2 class="subtitle">Sila mengisi form untuk mengirimkan pesan kepada kami</h2>
+                <br>
+                <form method="POST" action="/kontak">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="fieldset">
+                        
+                        <div class="field">
+                            <p>Nama:</p>
+                            <p class="control has-icons-left has-icons-right">
+                                {% if form.nama.errors %}
+                                    {{ form.nama(class="input is-danger") }}
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    {% for error in form.nama.errors %}
+                                    <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.nama(class="input") }}
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p>Email:</p>
+                            <p class="control has-icons-left has-icons-right">
+                                {% if form.email.errors %}
+                                    {{ form.email(class="input is-danger") }}
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    {% for error in form.email.errors %}
+                                    <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.email(class="input") }}
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p>pesan:</p>
+                            <p class="control has-icons-left has-icons-right">
+                                {% if form.pesan.errors %}
+                                    {{ form.pesan(class="input is-danger") }}
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    {% for error in form.pesan.errors %}
+                                    <p class="help is-danger">{{ error }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    {{ form.pesan(class="textarea") }}
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                {% endif %}
+                            </p>
+                        </div>
+                        
+                        
+                        <div class="field">
+                            
+                            
+                        </div>
+                        <div class="field">
+                            <p class="control has-text-right">
+                                {{ form.submit(class="button is-success") }}
+                            </p>
+                        </div>
+                    </fieldset>
+                </form> 
+            </div>
+        </div>
+        
+        
+
+{% endblock content %}

@@ -1,0 +1,135 @@
+{% extends "admin/layoutalbarokah.html" %}
+{% block content %}
+    <h1><strong>Dashboard Smart Farming</strong></h1>
+    <br>
+    <div class="columns ">
+        <div class="column">
+            <div class="box has-text-centered has-background-primary">
+<p style="font-size: 32px;color: aliceblue;font-weight: bold;">ANGGOTA</p>
+<p style="font-size: 30px;color: aliceblue;font-weight: bold;">{{ jmla }}</p>
+            </div></div>
+        <div class="column"><div class="box has-text-centered  has-background-link">
+            <p style="font-size: 32px;color: aliceblue;font-weight: bold;">ALAT</p>
+            <p style="font-size: 30px;color: aliceblue;font-weight: bold;">0</p></div>
+            </div>
+        <div class="column"><div class="box has-text-centered has-background-info">
+            <p style="font-size: 32px;color: aliceblue;font-weight: bold;">PUPUK</p>
+            <p style="font-size: 30px;color: aliceblue;font-weight: bold;">0</p></div>
+        </div>
+        <div class="column"><div class="box has-text-centered has-background-warning ">
+            <p style="font-size: 32px;color: aliceblue;font-weight: bold;">AREA</p>
+            <p style="font-size: 30px;color: aliceblue;font-weight: bold;">{{ jmlb.0.0 }}</p></div>
+      </div>
+      </div>
+    <div class="columns ">
+        <div class="column">
+            <h1><strong>Alat 1</strong></h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>PH</th>
+                        <th>SOIL</th>
+                        <th>TEMP</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for k in a1 %}
+                    <tr> 
+                        <td>{{ loop.index }}</td>       
+                        <td>{{ k.ph }}</td>
+                        <td>{{ k.lembab}}</td>
+                        <td>{{ k.temp}}</td>
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table></div>
+        <div class="column">
+            <h1><strong>Alat 2</strong></h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>PH</th>
+                        <th>SOIL</th>
+                        <th>TEMP</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for k in a2 %}
+                    <tr> 
+                        <td>{{ loop.index }}</td>       
+                        <td>{{ k.ph }}</td>
+                        <td>{{ k.lembab}}</td>
+                        <td>{{ k.temp}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="column">
+            <h1><strong>Alat 3</strong></h1>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>PH</th>
+                    <th>SOIL</th>
+                    <th>TEMP</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                    {% for k in a3 %}
+                <tr> 
+                    <td>{{ loop.index }}</td>       
+                    <td>{{ k.ph }}</td>
+                    <td>{{ k.lembab}}</td>
+                    <td>{{ k.temp}}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        <div class="column">
+            <h1><strong>Alat 4</strong></h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>PH</th>
+                        <th>SOIL</th>
+                        <th>TEMP</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for k in a4 %}
+                    <tr> 
+                        <td>{{ loop.index }}</td>       
+                        <td>{{ k.ph }}</td>
+                        <td>{{ k.lembab}}</td>
+                        <td>{{ k.temp}}</td>
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    
+    <br>
+
+        <script>
+            // disable 
+            $(".delete").click(function() {
+              $(".modal").removeClass("is-active");
+            });
+            // end disable
+        </script>
+{% endblock content %}

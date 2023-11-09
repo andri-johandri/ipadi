@@ -1,0 +1,185 @@
+{% include "main/atas.html" %}
+<link href="{{ url_for('static', filename='images/index.png') }}" rel="icon">
+<link href="{{ url_for('static', filename='images/index.png') }}" rel="apple-touch-icon">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+<link rel="stylesheet" type="text/css" href="/static/css/hero.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+{% if meta %}
+<title>{{ post.judul }} - {{ blog_name }}</title>
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<meta name="description" content="{{ post.content|striptags|truncate(150) }}">
+<meta name="news_keywords" content="{{ post.judul }}">
+<meta property="og:title" content="{{ post.judul }}" />
+<meta property="og:url" content="{{ request.url }}" />
+<meta property="og:image" content="{{ url_for('static', filename='upload/img_thumbnail/' + post.gambar) }}" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="300" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{meta}}" />
+<meta name="twitter:description" content="{{ post.isi|striptags|truncate(150) }}" />
+<meta name="twitter:image" content="{{ url_for('static', filename='upload/img_thumbnail/' + post.gambar, _external=True) }}" />
+{% else %}
+<title>{{ title }} - {{ blog_name }}</title>
+
+<meta name="description" content="{{ deskripsi_name|truncate(150) }}">
+<meta name="news_keywords" content="{{ title }}">
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:url" content="{{ request.url }}" />
+<meta property="og:image" content="{{ url_for('static', filename='images/index.png') }}" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="300" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{title}}" />
+<meta name="twitter:description" content="{{ deskripsi_name|truncate(150) }}" />
+<meta name="twitter:image" content="{{ url_for('static', filename='images/index.png', _external=True) }}" />
+{% endif %}
+
+  </head>
+  <body style="overflow-x: hidden;">
+     <div>
+        <div class="columns">
+            <div class="column">
+                <nav class="navbar has-text-centered py-5 is-fixed-top has-background-white">
+                
+                    <div class="container">
+                            <div class="columns ">
+                            <div class="column" style="margin-left:15px;margin-right:15px;">
+                                <a href="/" style="font-size: 32px;">ALBAROKAH</a>
+                            </div>
+                    </div>
+                    </div>
+                    
+                    <div id="navbarBasicExample" class="navbar-menu">
+                        
+                    
+                        <div class="navbar-end">
+                            <div class="navbar-item">
+                                <div class="has-text-centered myDIV" style="font-size: 2rem;">
+                                    <a href="/" style="color: rgb(255, 136, 0);"><i class="fa fa-home "></i></a>
+                                    <br>
+                                    <p style="font-size: 10px ;line-height: 10%;"><strong>Beranda</strong></p>
+                                </div>
+                               
+                            </div>
+                            <div class="navbar-item">
+                                <div class="has-text-centered is-link" style="font-size: 2rem;">
+                                    <a href="/dataiot" style="color: rgb(255, 136, 0);"><i class="fa fa-area-chart"></i></a>
+                                    <br>
+                                    <p style="font-size: 10px ;line-height: 10%;"><strong>Data Alat</strong></p>
+                                </div>
+                            </div>
+                            <div class="navbar-item">
+                                <div class="has-text-centered is-link" style="font-size: 2rem;">
+                                    <a href="https://www.tokopedia.com/login" style="color: rgb(255, 136, 0);"><i class="fa fa-shopping-cart"></i></a>
+                                    <br>
+                                    <p style="font-size: 10px ;line-height: 10%;"><strong>Shop Online</strong></p>
+                                </div>
+                            </div>
+    
+    
+                            <div class="navbar-item">
+                               <div class="has-text-centered is-link" style="font-size: 2rem;">
+                                    <a href="/masuk" style="color: rgb(255, 136, 0);"><i class="fa fa-user"></i></a><br>
+                                    <p style="font-size: 10px ;line-height: 10%;"><strong>Pengguna</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                </nav>
+            </div>
+        </div> 
+       
+
+        </div>
+        <div class="columns">
+            <div class="column is-12">
+                
+                {% block content %}{% endblock %}
+            </div>
+
+        </div>
+    
+    <!-- footer -->
+    <footer class="footer  "  style="background-color: #940000;color: #ffffff;">
+       
+        <div class="has-text-centered py-10">
+
+            <p class="has-text-white" style="padding-top: 15px;" style="background-color: #940000;color: #ffffff;"> ALBAROKAH ORGANIK SMART FARMING | Copyright &copy; {{ now }}</p>
+            <br>
+        </div>
+    </footer>
+    <nav class="navbar has-text-centered py-10 is-fixed-bottom has-background-white shadow is-hidden-desktop">
+        <div class="navbar-brand has-text-centered">
+                <div class="navbar-item">
+                    <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                        <a href="/" style="color: #940000;"><i class="fa fa-home"></i></a>
+                        <br>
+                        <p style="font-size: 8px ;line-height: 10%;"><strong>Beranda</strong></p>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                        <a href="/dataiot" style="color: #940000;"><i class="fa fa-area-chart"></i></a>
+                        <br>
+                        <p style="font-size: 8px ;line-height: 10%;"><strong>Data IOT</strong></p>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                        <a href="https://www.tokopedia.com/login" style="color: #940000;"><i class="fa fa-shopping-cart "></i></a>
+                        <br>
+                        <p style="font-size: 8px ;line-height: 10%;"><strong>Shop Online</strong></p>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="has-text-centered is-link" style="font-size: 2.0rem;">
+                        <a href="/signin" style="color: #940000;"><i class="fa fa-user"></i></a><br>
+                        <p style="font-size: 8px ;line-height: 10%;"><strong>Signin</strong></p>
+                    </div>
+                </div>
+                
+        </div>
+    </nav>
+</div>
+    <!-- end-footer -->
+  <!-- </section> -->
+  <script>
+      const navbarBurgers = document.getElementsByClassName('navbar-burger')[0];
+      const navbarMenu = document.getElementsByClassName('navbar-menu')[0];
+      const burgerClick = navbarBurgers.addEventListener('click', tampilMenu);
+      function tampilMenu(){
+        navbarBurgers.classList.toggle('is-active');
+        navbarMenu.classList.toggle('is-active');
+      }
+      function outsideClick(e){
+            if(e.target){ 
+                element.classList.remove("is-active");            
+            }
+        }
+  </script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            $notification = $delete.parentNode;
+    
+            $delete.addEventListener('click', () => {
+            $notification.parentNode.removeChild($notification);
+            });
+        });
+        });
+        </script>
+  <script>
+  bulmaCarousel.attach('#post_images', {
+    slidesToScroll: 1,
+    slidesToShow: 1,
+    loop: true,
+    autoplay: true,
+  });
+</script>
+  </body>
+</html>

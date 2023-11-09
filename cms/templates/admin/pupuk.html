@@ -1,0 +1,44 @@
+{% extends "admin/layoutalbarokah.html" %}
+{% block content %}
+<h1><strong>Data Pupuk </strong></h1>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Pembuat</th>
+            <th>Alamat</th>
+            <th>Nama Pupuk</th>
+            <th>Keterangan</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for k in kategori %}
+        <tr> 
+            <td>{{ loop.index }}</td>       
+            <td>{{ k.nama }}</td>
+            <td>{{ k.alamat }}</td>
+            <td>{{ k.namapupuk }}</td>
+            <td>{{ k.longi }}</td>
+            <td>
+            
+                <a href="" class="button is-small is-info">Lihat</a>
+                <a href="" class="button is-small is-warning">Edit</a>
+                <a href="" class="button is-small is-danger" onclick="return confirm('Anda yakin ingin menghapus ini?');">Hapus</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a href="{{ url_for('admin.tambahpupuk') }}" class="button is-success">Tambah Data Pupuk</a>
+
+        <script>
+            // disable 
+            $(".delete").click(function() {
+              $(".modal").removeClass("is-active");
+            });
+            // end disable
+        </script>
+{% endblock content %}

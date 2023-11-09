@@ -1,0 +1,78 @@
+{% extends "admin/layoutalbarokah.html" %}
+{% block content %}
+<h1><strong>Tambah Data Alat IOT </strong></h1>
+<br>
+    <div class="my-4">
+			<form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="field">
+                    {{ form.nama.label(class="label") }}
+                    {% if form.nama.errors %}
+                        {{ form.nama(class="input") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.nama.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.nama(class="input") }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.alamat.label(class="label") }}
+                    {% if form.alamat.errors %}
+                        {{ form.alamat(class="input") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.alamat.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.alamat(class="input") }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.lati.label(class="label") }}
+                    {% if form.lati.errors %}
+                        {{ form.lati(class="input") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.lati.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.lati(class="input") }}
+                    {% endif %}
+                </div>
+                <div class="field">
+                    {{ form.longi.label(class="label") }}
+                    {% if form.longi.errors %}
+                        {{ form.longi(class="input") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.longi.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.longi(class="input") }}
+                    {% endif %}
+                </div>
+                
+                <div class="field">
+                    {{ form.gambar.label(class="label") }}
+                    {{ form.gambar(class="") }}
+                    {% if form.gambar.errors %}
+                        {% for error in form.gambar.errors %}
+                            <span class="text-danger">{{ error }}</span><br>
+                        {% endfor %}
+                    {% endif %}
+            </div>
+            
+                <div class="field">
+                    <div class="form-group">
+                        {{ form.submit(class="button is-info") }}
+                    </div>
+                </div>
+			</form>
+		</div>
+{% endblock content %}

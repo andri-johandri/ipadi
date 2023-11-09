@@ -1,0 +1,55 @@
+{% extends "admin/layoutalbarokah.html" %}
+{% block content %}
+    <h1><strong>Dashboard Smart Farming</strong></h1>
+    <br>
+    <div class="columns ">
+
+        
+
+        <div class="column">
+            <h1><strong>Alat 4</strong></h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Jam</th>
+                        <th>PH</th>
+                        <th>SOIL</th>
+                        <th>DALAM</th>
+                        <th>TEMP</th>
+                        <th>LUAR</th>
+                        <th>ANGIN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for k in a4 %}
+                    <tr> 
+                        <td>{{ loop.index }}</td>
+                        <td>{{ k.tgl }}</td>
+                        <td>{{ k.jam }}</td>       
+                        <td>{{ k.ph }}</td>
+                        <td>{{ k.lembab}}</td>
+                        <td>{{ k.temp}}</td>
+                        <td>{{ k.air}}</td>
+                        <td>{{ k.hum}}</td>
+                        <td>{{ k.ads}}</td>
+                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+      </div>
+    
+    <br>
+
+        <script>
+            // disable 
+            $(".delete").click(function() {
+              $(".modal").removeClass("is-active");
+            });
+            // end disable
+        </script>
+{% endblock content %}

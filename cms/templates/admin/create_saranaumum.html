@@ -1,0 +1,123 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="fieldset">
+            <legend class="title is-3">{{title}}</legend>
+            <div class="field">
+                <p class="control">
+                    {{ form.title.label(class="label") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="input is-danger") }}
+                        {% for error in form.title.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.title(class="input") }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    {{ form.loklat.label(class="label") }}
+                    {% if form.loklat.errors %}
+                        {{ form.loklat(class="input is-danger") }}
+                        {% for error in form.loklat.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.loklat(class="input") }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    {{ form.loklong.label(class="label") }}
+                    {% if form.loklong.errors %}
+                        {{ form.loklong(class="input is-danger") }}
+                        {% for error in form.loklong.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.loklong(class="input") }}
+                    {% endif %}
+                </p>
+            </div>
+            
+            <div class="field">
+                <p class="control">
+                    {{ form.nohp.label(class="label") }}
+                    {% if form.nohp.errors %}
+                        {{ form.nohp(class="input is-danger") }}
+                        {% for error in form.nohp.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.nohp(class="input") }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    {{ form.nowa.label(class="label") }}
+                    {% if form.nowa.errors %}
+                        {{ form.nowa(class="input is-danger") }}
+                        {% for error in form.nowa.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.nowa(class="input") }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    {{ form.surel.label(class="label") }}
+                    {% if form.surel.errors %}
+                        {{ form.surel(class="input is-danger") }}
+                        {% for error in form.surel.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.surel(class="input") }}
+                    {% endif %}
+                </p>
+            </div>
+            
+            
+            <div class="field">
+                <p class="control">
+                {{ form.content.label(class="label") }}
+                {% if form.content.errors %}
+                    {{ form.content(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content(class="textarea") }}
+                {% endif %}
+                </p>
+            </div>
+            <div class="field">
+                    {{ form.thumbnail.label(class="file-label") }}
+                    {{ form.thumbnail(class="") }}
+                    {% if form.thumbnail.errors %}
+                        {% for error in form.thumbnail.errors %}
+                            <span class="text-danger">{{ error }}</span><br>
+                        {% endfor %}
+                    {% endif %}
+            </div>
+            
+            
+            <div class="field">
+                <p class="control has-text-right">
+                    {{ form.submit(class="button is-success") }}
+                </p>
+            </div>
+        </fieldset>
+    </form>
+	{{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/ckeditor.js')) }}
+    {{ ckeditor.config(name='content') }}
+{% endblock content %}
